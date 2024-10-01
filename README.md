@@ -10,4 +10,13 @@ MediMind is a medical chatbot built using Streamlit and the Hugging Face Transfo
 
 ## Getting Started
 
-1. Clone the 
+1. Clone the repository
+2. Install the dependencies
+3. Run the app
+
+```bash
+git clone https://github.com/ShivamGoyal03/MediMind.git
+cd MediMind
+pip install -r requirements.txt
+streamlit run app.py
+```

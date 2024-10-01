@@ -1,2 +1,8 @@
+# Ignore virtual environment directories
 .venv
+
+# Ignore all zip files
 *.zip
+
+# Ignore Python cache directories
+*__pycache__
