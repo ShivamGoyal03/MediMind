@@ -20,10 +20,9 @@ def clean_text(text):
     1. Lowercasing
     2. Removing URLs
     3. Removing punctuation
-    4. Removing numbers
-    5. Tokenization
-    6. Removing stop words
-    7. Lemmatization
+    4. Tokenization
+    5. Removing stop words
+    6. Lemmatization
 
     Args:
         text: str: input text
@@ -39,9 +38,6 @@ def clean_text(text):
 
     # Remove punctuation
     text = text.translate(str.maketrans('', '', string.punctuation))
-
-    # Remove numbers
-    text = re.sub(r'\d+', '', text)
 
     # Tokenization
     tokens = word_tokenize(text)
