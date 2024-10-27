@@ -6,3 +6,6 @@
 
 # Ignore Python cache directories
 *__pycache__
+
+*.pt
+*.safetensors
