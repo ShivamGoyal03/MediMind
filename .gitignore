@@ -9,3 +9,4 @@
 
 *.pt
 *.safetensors
+.env
