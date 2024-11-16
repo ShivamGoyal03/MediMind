@@ -51,3 +51,16 @@ def clean_text(text):
     tokens = [lemmatizer.lemmatize(word) for word in tokens]
 
     return ' '.join(tokens)
+
+def extract_symptoms(self, text):
+    text = text.lower()
+    found_symptoms = []
+    
+    text = re.sub(r'[^\w\s]', ' ', text)
+    words = text.split()
+    
+    for symptom in self.all_symptoms:
+        if symptom in text:
+            found_symptoms.append(symptom)
+        
+    return found_symptoms
