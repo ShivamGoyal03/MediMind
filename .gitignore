@@ -10,3 +10,4 @@
 *.pt
 *.safetensors
 .env
+cache_dir/
