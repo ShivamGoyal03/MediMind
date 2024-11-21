@@ -26,5 +26,5 @@ The AI-powered Medical Q&A Chatbot, MediMind, is a web-based application that le
 git clone https://github.com/ShivamGoyal03/MediMind.git
 cd MediMind
 pip install -r requirements.txt
-streamlit run app.py
+streamlit run application.py
 ```
