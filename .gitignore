@@ -11,3 +11,9 @@
 *.safetensors
 .env
 .gitattributes
+
+# Documentation
+*.rst
+docs/_sources
+docs/_build
+docs/.buildinfo

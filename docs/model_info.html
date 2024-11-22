@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Model Information &mdash; MediMind Documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=2709fde1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Assumptions" href="assumptions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MediMind
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About MediMind</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">Team Members</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core_logic.html">Core Logic and Library Choices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assumptions.html">Assumptions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Model Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rnn-model-pth">1. RNN Model (.pth)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#llm-large-language-model">2. LLM (Large Language Model)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MediMind</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Model Information</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ShivamGoyal03/MediMind/blob/mainmodel_info.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="model-information">
+<span id="model-info"></span><h1>Model Information<a class="headerlink" href="#model-information" title="Link to this heading"></a></h1>
+<p>MediMind uses a combination of machine learning (ML) and large language models (LLMs) for symptom analysis and recommendation generation:</p>
+<section id="rnn-model-pth">
+<h2>1. RNN Model (.pth)<a class="headerlink" href="#rnn-model-pth" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Purpose:</strong> Initial disease prediction.</p></li>
+<li><p><strong>Type:</strong> Pre-trained Recurrent Neural Network (RNN).</p></li>
+<li><p><strong>Architecture:</strong> [RNN architecture details, e.g.,  Single-layer RNN with 240 hidden units, ReLU activation]</p></li>
+<li><p><strong>Weights:</strong> Stored in <code class="docutils literal notranslate"><span class="pre">models/pretrained_symtom_to_disease_model.pth</span></code>.</p></li>
+</ul>
+<blockquote>
+<div><div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Example code snippet for loading the RNN model (PyTorch)</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rnn_model</span> <span class="o">=</span> <span class="n">RNN_model</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span>
+<span class="n">rnn_model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_path</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">)))</span>
+<span class="n">rnn_model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+</section>
+<section id="llm-large-language-model">
+<h2>2. LLM (Large Language Model)<a class="headerlink" href="#llm-large-language-model" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Purpose:</strong>  Generates follow-up questions, refines diagnosis, and provides recommendations.</p></li>
+<li><p><strong>Model:</strong> <a class="reference external" href="https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct">https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct</a></p></li>
+<li><p><strong>Capabilities:</strong> Contextual understanding and human-like text generation.  Suitable for interactive medical question-answering.</p></li>
+</ul>
+<blockquote>
+<div><div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example code snippet for using the LLM (Hugging Face Transformers)</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">llm</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;text-generation&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;meta-llama/Llama-3.2-1B-Instruct&quot;</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">llm</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;generated_text&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="assumptions.html" class="btn btn-neutral float-left" title="Assumptions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Shivam Goyal.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
