@@ -61,6 +61,9 @@ with st.sidebar:
     
     **Disclaimer:** This is not a substitute for professional medical advice.  Always consult a healthcare professional for diagnosis and treatment.
     """)
+    doc_url = "https://medimind-doc.vercel.app/"
+    st.sidebar.markdown(f'<a href="{doc_url}" target="_blank" style="text-decoration: none; color: white; background-color: #4CAF50; padding: 5px 10px; border-radius: 5px; display: inline-block; margin-bottom: 20px;">Go to Documentation</a>', unsafe_allow_html=True)
+
 
 # --- NLTK and Data Loading ---
 nltk.download('punkt', quiet=True)
