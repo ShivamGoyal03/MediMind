@@ -1,18 +1,17 @@
 """
 MediMind - Medical Symptom Analyzer
-This app uses a combination of a pre-trained RNN model and a large language model (LLM) to analyze your symptoms and provide medical information.
-It can predict diseases based on symptoms and generate follow-up questions and recommendations.
+This application uses a combination of a pre-trained RNN model and a large language model (LLM) to analyze user symptoms and provide medical information. The RNN model predicts potential diseases based on symptoms, while the LLM generates follow-up questions and medical recommendations.
+The application is built using Streamlit and Hugging Face Transformers.
 
 Usage:
-1. Run the app using the command: streamlit run application.py
-2. Enter your symptoms in the chat interface and follow the instructions to get predictions and recommendations.
-3. Click the "Reset Session" button to start a new session.
+    1. Run the app using the command: streamlit run application.py
+    2. Enter your symptoms in the chat interface and follow the instructions to get predictions and recommendations.
+    3. Click the "Reset Session" button to start a new session.
 
 Project Structure:
-- data/: Contains the dataset Symptom2Disease.csv
-- models/: Contains the pre-trained RNN model (pretrained_symtom_to_disease_model.pth)
-- application.py: Streamlit app code for the MediMind application.
-
+    - data/: Contains the dataset Symptom2Disease.csv
+    - models/: Contains the pre-trained RNN model (pretrained_symtom_to_disease_model.pth)
+    - application.py: Streamlit app code for the MediMind application.
 """
 import streamlit as st
 import torch
@@ -73,14 +72,13 @@ english_stopwords = stopwords.words('english')
 
 def load_data(filepath='data/raw/Symptom2Disease.csv'):
     """
-    Load the symptom to disease dataset from a CSV file.
+    Load the symptom-disease dataset from a CSV file.
     
     Args:
-    filepath (str): Path to the CSV file.
-    
+        filepath (str): Path to the CSV file.
+        
     Returns:
-    pd.DataFrame: The loaded dataset.
-    
+        pd.DataFrame: The loaded dataset.
     """
     try:
         df = pd.read_csv(filepath)
@@ -101,14 +99,13 @@ train_data = load_data()
 # --- Tokenization and Vectorization ---
 def tokenize(text):
     """
-    Tokenize the input text and apply stemming.
+    Tokenize and stem the input text.
     
     Args:
-    text (str): Input text to tokenize.
-    
+        text (str): Input text to tokenize.
+        
     Returns:
-    list: List of stemmed tokens.
-    
+        List[str]: List of stemmed tokens
     """
     return [stemmer.stem(token) for token in word_tokenize(text)]
 
@@ -120,15 +117,17 @@ vectorizer.fit(train_data['text'])
 class RNN_model(nn.Module):
     """
     RNN model for symptom to disease prediction.
-    
+
     Args:
-    input_size (int): Input size of the model.
-    hidden_size (int): Hidden size of the RNN.
-    output_size (int): Output size of the model.
-    
+        input_size (int): Input feature size.
+        hidden_size (int): Hidden layer size.
+        output_size (int): Output size (number of classes).
+
     Returns:
-    torch.nn.Module: RNN model.
-    
+        torch.nn.Module: RNN model.
+
+    Usage:
+        model = RNN_model(input_size, hidden_size, output_size)
     """
     def __init__(self, input_size, hidden_size, output_size):
         super().__init__()
@@ -162,13 +161,13 @@ except Exception as e:
 # --- Disease Prediction (RNN) ---
 def predict_disease(symptoms):
     """
-    Predict the disease based on the input symptoms using the RNN model.
+    Predict the disease based on input symptoms using the RNN model.
 
     Args:
-    symptoms (str): Input symptoms provided by the user.
+        symptoms (str): Input symptoms.
 
     Returns:
-    str: Predicted disease based on the symptoms.
+        str: Predicted disease.
     """
     try:
         transformed_symptoms = vectorizer.transform([symptoms])
@@ -183,26 +182,22 @@ def predict_disease(symptoms):
         return "Unknown"
 
 
-# --- LLM Interface ---
 class LLMInterface:
     """
     Interface for the Large Language Model (LLM) for generating follow-up questions and recommendations.
-
+    
     Args:
-    model_name (str): Name of the LLM model to use.
+        model_name (str): meta-llama/Llama-3.2-1B-Instruct model from Hugging Face Transformers.
 
     Returns:
-    LLMInterface: LLM interface object.
+        LLMInterface: LLM interface object.
 
     Usage:
-    >>> llm_int = LLMInterface()
+        >>> llm_int = LLMInterface()
+        >>> questions = llm_int.get_follow_up_questions(initial_symptoms, conversation_history)
+        >>> recommendations = llm_int.generate_recommendations(symptoms_info, diagnosis)
 
-    Methods:
-    - get_follow_up_questions(initial_symptoms, conversation_history): Generate follow-up questions based on initial symptoms and conversation history.
-    - generate_recommendations(symptoms_info, diagnosis): Generate recommendations based on symptoms and diagnosis.
-
-    Model: meta-llama/Llama-3.2-1B-Instruct
-    More info: https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct
+    More Info: https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct
     """
     def __init__(self, model_name="meta-llama/Llama-3.2-1B-Instruct"):
         try:
@@ -221,17 +216,19 @@ class LLMInterface:
     def get_follow_up_questions(self, initial_symptoms, conversation_history):
         """
         Generate follow-up questions based on initial symptoms and conversation history.
-        
+
         Args:
-        initial_symptoms (str): Initial symptoms provided by the user.
-        conversation_history (str): Conversation history with the user.
-        
+            initial_symptoms (str): Initial symptoms provided by the user.
+            conversation_history (str): Conversation history with the user.
+
         Returns:
-        list: List of follow-up questions generated by the LLM.
+            List[str]: List of follow-up questions.
+
+        Usage:
+            >>> questions = llm_int.get_follow_up_questions(initial_symptoms, conversation_history)
         """
         prompt = (
-            f"You are a medical assistant. Based on the initial symptoms: '{initial_symptoms}', and the conversation history below, ask 3-4 DIFFERENT, concise, medically relevant 
-            follow-up questions to help determine the diagnosis. \n\nConversation History:\n{conversation_history}\n\nQuestions:"
+            f"You are a medical assistant. Based on the initial symptoms: '{initial_symptoms}', and the conversation history below, ask 3-4 DIFFERENT, concise, medically relevant follow-up questions to help determine the diagnosis. \n\nConversation History:\n{conversation_history}\n\nQuestions:"
         )
         try:
             response = self.llm(prompt, max_new_tokens=700, temperature=0.7,
@@ -245,16 +242,18 @@ class LLMInterface:
 
     def generate_recommendations(self, symptoms_info, diagnosis):
         """
-        Generate recommendations based on symptoms and diagnosis.
+        Generate treatment and prevention recommendations based on symptoms and diagnosis.
 
         Args:
-        symptoms_info (str): Information about the symptoms provided by the user.
-        diagnosis (str): Predicted diagnosis based on the symptoms.
+            symptoms_info (str): Information about the symptoms.
+            diagnosis (str): Predicted disease diagnosis.
 
         Returns:
-        str: Recommendations generated by the LLM.
-        """
+            str: Generated recommendations.
 
+        Usage:
+            >>> recommendations = llm_int.generate_recommendations(symptoms_info, diagnosis)
+        """
         prompt = (
             f"Based on the symptoms and diagnosis below, provide concise treatment and prevention recommendations:\n\n"
             f"Symptoms: {symptoms_info}\n"
@@ -272,8 +271,14 @@ class LLMInterface:
 
 def chatbot_interface():
     """
-    Streamlit interface for the MediMind chatbot.
+    Streamlit chatbot interface for the MediMind application.
+    
+    Usage:
+        - Run the app using the command: streamlit run application.py
+        - Enter your symptoms in the chat interface and follow the instructions to get predictions and recommendations.
+        - Click the "Reset Session" button to start a new session.
     """
+    
     if "messages" not in st.session_state:
         st.session_state.messages = []
     if "disease_prediction" not in st.session_state:
@@ -338,6 +343,5 @@ def chatbot_interface():
                 st.markdown(
                     f"Predicted Disease: {st.session_state.disease_prediction}\n\nRecommendations:\n{recommendations}")
         st.session_state.follow_up_complete = True
-
 
 chatbot_interface()
