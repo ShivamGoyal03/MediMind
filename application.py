@@ -24,8 +24,12 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import SnowballStemmer
 import nltk
+import os
+from dotenv import load_dotenv
 import warnings
 warnings.filterwarnings('ignore')
+
+load_dotenv()
 
 # App Config
 st.set_page_config(
@@ -208,6 +212,7 @@ class LLMInterface:
                 "text-generation",
                 model=model_name,
                 device_map="auto",
+                token = os.getenv("HUGGINGFACE_TOKEN"),
                 truncation=True,
                 pad_token_id=2
             )
